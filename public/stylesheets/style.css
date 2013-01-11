@@ -5,3 +5,19 @@ body {
 a {
   color: #00b7ff;
 }
+
+#text-area-chat {
+    width: 800px;
+}
+
+#text-area-chat, #text-area-people {
+    height: 400px;
+}
+
+input#chat-input {
+    width: 726px;
+}
+
+input.submit-btn {
+    margin: -10px 0 0 0;
+}

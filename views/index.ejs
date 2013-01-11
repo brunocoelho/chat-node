@@ -2,28 +2,40 @@
 <html lang="en">
   <head>
     <title>Node.js Chat!</title>
-    <link rel='stylesheet' href='/stylesheets/style.css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="/stylesheets/bootstrap-responsive.min.css">
     <script src="/javascripts/jquery.js"></script>
   </head>
 
   <body>
-    <textarea id="text-area" rows="30" cols="100" disabled="disabled"></textarea>
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <textarea id="text-area-people" disabled="disabled"></textarea>
+        </div>
 
-    <form id="chat-form">
-      <input type="text" id="chat-input">
-      <input type="submit">
-    </form>
+        <div class="span9">
+          <textarea id="text-area-chat" disabled="disabled"></textarea>
+          <form id="chat-form">
+            <input type="text" id="chat-input" placeholder="Chat here…">
+            <input type="submit" class="submit-btn btn btn-primary">
+          </form>
+        </div>
+      </div>
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var server = io.connect('http://localhost:3000');
 
         server.on('connect', function (data) {
-            var nickname;
+            /*var nickname;
             do {
                 nickname = prompt('Please insert your nickname.');
             } while (!nickname);
-            server.emit('join', nickname);
+            server.emit('join', nickname);*/
         });
 
         $('form#chat-form').submit(function (e) {
@@ -34,8 +46,9 @@
         });
 
         server.on('message', function (msg) {
-            $('textarea#text-area').append('\n' + msg);
+            $('textarea#text-area-chat').append('\n' + msg);
         });
     </script>
+    <script src="/javascripts/bootstrap.min.js"></script>
   </body>
 </html>
