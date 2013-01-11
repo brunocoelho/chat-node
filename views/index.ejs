@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Node.js Chat!</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'>
+    <script src="/javascripts/jquery.js"></script>
   </head>
+
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <textarea id="text-area" rows="30" cols="100" disabled="disabled"></textarea>
+
+    <form id="chat-form">
+      <input type="text" id="chat-input">
+      <input type="submit">
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var server = io.connect('http://localhost:3000');
+
+        server.on('connect', function (data) {
+            var nickname = prompt('Please insert your nickname.');
+            server.emit('join', nickname);
+        });
+
+        $('form#chat-form').submit(function (e) {
+            e.preventDefault();
+            var message = $('input#chat-input').val();
+            $('input#chat-input').val('');
+            server.emit('message', message);
+        });
+
+        server.on('message', function (msg) {
+            $('textarea#text-area').append('\n' + msg);
+        });
+    </script>
   </body>
 </html>
