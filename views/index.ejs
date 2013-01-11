@@ -19,8 +19,9 @@
         var server = io.connect('http://localhost:3000');
 
         server.on('connect', function (data) {
+            var nickname;
             do {
-                var nickname = prompt('Please insert your nickname.');
+                nickname = prompt('Please insert your nickname.');
             } while (!nickname);
             server.emit('join', nickname);
         });
